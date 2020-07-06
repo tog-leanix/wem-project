@@ -1,0 +1,16 @@
+{
+  "name": "wem-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "http-server --port 8080"
+  },
+  "author": "Tom Gehder",
+  "license": "ISC"
+}
