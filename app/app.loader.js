@@ -1,8 +1,8 @@
 import { Menu } from '../components/menu.js';
 import { Root } from './app.root.js';
-import { Test } from '../components/test.js';
+import { TestPage } from '../pages/test.page.js';
 
-const components = [Root, Menu, Test];
+const components = [Root, Menu, TestPage];
 
 export class Loader {
   constructor() {}
