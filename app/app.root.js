@@ -1,8 +1,15 @@
-import { LitElement, html } from 'https://unpkg.com/lit-element?module';
+import { LitElement, html, css } from 'https://unpkg.com/lit-element?module';
 import { Router } from './app.routing.js';
 
 export class Root extends LitElement {
   viewContent = html``;
+  static get styles() {
+    return css`
+      main {
+        padding: 1em;
+      }
+    `;
+  }
 
   constructor() {
     super();

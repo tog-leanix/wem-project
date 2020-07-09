@@ -1,7 +1,7 @@
 export const ROUTES = [
   {
     path: '',
-    tag: ''
+    tag: 'tg-homepage'
   },
   {
     path: 'test',

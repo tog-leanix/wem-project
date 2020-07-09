@@ -2,7 +2,14 @@ import { ROUTES } from './app.routes.js';
 const REGISTERED_ROUTES = ROUTES;
 export class Router {
   static init() {
-    window.history.replaceState(null, 'Home', '/');
+    this.navigate('');
+
+    // Little helper to not reload on subpages since we can't route any traffic to index html
+    window.onbeforeunload = (event) => {
+      if (window.location.pathname !== '/') {
+        return '';
+      }
+    };
   }
 
   /**
