@@ -7,7 +7,7 @@ export class Root extends LitElement {
   constructor() {
     super();
     Router.onRouteChange((state) => {
-      if (!state) {
+      if (!state || !state.tag) {
         this.viewContent = html``;
       } else if (state.tag) {
         const htmlElement = document.createElement(state.tag);

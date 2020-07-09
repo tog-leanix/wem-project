@@ -16,7 +16,7 @@ export class Router {
     if (!pathToDisplay) {
       throw new Error('Route not found in registered routes', route);
     }
-    window.history.pushState({ tag: pathToDisplay.tag }, route, pathToDisplay.path);
+    window.history.pushState({ tag: pathToDisplay.tag }, route, pathToDisplay.path || '/');
     window.dispatchEvent(new Event('popstate'));
   }
 
