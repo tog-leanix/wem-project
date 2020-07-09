@@ -8,16 +8,16 @@ export class Menu extends LitElement {
       path: ''
     },
     {
-      title: 'Test',
-      path: 'test'
+      title: 'Structure',
+      path: 'structure'
     },
     {
-      title: 'Test',
-      path: 'test'
+      title: 'Routing',
+      path: 'routing'
     },
     {
-      title: 'Test',
-      path: 'test'
+      title: 'About Me',
+      path: 'about'
     }
   ];
 
