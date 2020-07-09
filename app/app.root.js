@@ -7,10 +7,14 @@ export class Root extends LitElement {
   constructor() {
     super();
     Router.onRouteChange((state) => {
-      console.log(state);
-      if (state.tagName) {
-        this.viewContent = html`<${state.tagName}></${state.tagName}>`;
+      if (!state) {
+        this.viewContent = html``;
+      } else if (state.tag) {
+        const htmlElement = document.createElement(state.tag);
+        this.viewContent = htmlElement;
       }
+
+      this.requestUpdate();
     });
   }
 
