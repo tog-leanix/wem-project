@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+/* 
+Global CSS Vars
+https://www.w3schools.com/css/css3_variables.asp 
+*/
+:root {
+  /* colors */
+  --primary: #2191fb;
+  --secondary: #ba740b;
+  --text-color: #ffffff;
+  --background-color: #55505c;
+  --highlight-color: #61fcdd;
+  /* vars */
+}
