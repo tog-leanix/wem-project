@@ -7,6 +7,8 @@ export class Root extends LitElement {
     return css`
       main {
         padding: 1em;
+        max-width: 900px;
+        margin: auto;
       }
     `;
   }

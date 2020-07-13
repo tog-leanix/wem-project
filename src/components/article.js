@@ -19,7 +19,6 @@ export class Article extends LitElement {
 
   async loadHTMLLayout(uri) {
     const htmlFile = await (await fetch(uri)).text();
-    console.log(htmlFile);
     const article = document.createElement('article');
     article.innerHTML = htmlFile;
     this.innerHTML = article;
@@ -27,6 +26,6 @@ export class Article extends LitElement {
   }
 
   render() {
-    return html`${this.innerHTML}`;
+    return html`${this.innerHTML ? this.innerHTML : 'Loading...'}`;
   }
 }
