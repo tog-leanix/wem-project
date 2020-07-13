@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'https://unpkg.com/lit-element?module';
-import { Router } from '../app/app.routing';
+import { Router } from '../app/app.routing.js';
 
 export class Article extends LitElement {
   static get properties() {
@@ -14,7 +14,7 @@ export class Article extends LitElement {
 
   firstUpdated() {
     if (this.uri) {
-      this.loadHTMLLayout(Router.rootPath + this.uri);
+      this.loadHTMLLayout(this.uri);
     }
   }
 
