@@ -43,4 +43,12 @@ export class Router {
       cb(state);
     });
   }
+
+  /**
+   * Returns boolean to determine if requested path is active
+   * @param {string} route Path to check
+   */
+  static isActiveRoute(route) {
+    return window.location.pathname.split('/')[1] === route;
+  }
 }

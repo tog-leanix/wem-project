@@ -38,6 +38,27 @@ export class Menu extends LitElement {
       li {
         padding: 1em 2em;
         cursor: pointer;
+        user-select: none;
+      }
+
+      li:hover {
+        background: var(--primary-dark);
+      }
+
+      li:focus,
+      .active {
+        outline: none;
+        background: var(--primary-dark);
+      }
+
+      @media (max-width: 720px) {
+        ul {
+          padding: 0;
+          flex-direction: column;
+        }
+        li {
+          text-align: center;
+        }
       }
     `;
   }
@@ -47,9 +68,13 @@ export class Menu extends LitElement {
       <ul>
         ${this.menuList.map(
           (item) =>
-            html`<li tabindex="0" @click="${() => this.navigatToPage(item.path)}"
-              >${item.title}</li
-            >`
+            html` <li
+              tabindex="0"
+              @click="${() => this.navigatToPage(item.path)}"
+              class="${Router.isActiveRoute(item.path) ? 'active' : ''}"
+            >
+              ${item.title}
+            </li>`
         )}
       </ul>
     `;
@@ -57,5 +82,6 @@ export class Menu extends LitElement {
 
   navigatToPage(path) {
     Router.navigate(path);
+    this.requestUpdate();
   }
 }
