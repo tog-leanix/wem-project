@@ -1,7 +1,9 @@
 import { ROUTES } from './app.routes.js';
 const REGISTERED_ROUTES = ROUTES;
 export class Router {
+  static rootPath = '';
   static init() {
+    this.rootPath = window.location.pathname;
     this.navigate('');
 
     // Little helper to not reload on subpages since we can't route any traffic to index html
@@ -23,7 +25,11 @@ export class Router {
     if (!pathToDisplay) {
       throw new Error('Route not found in registered routes', route);
     }
-    window.history.pushState({ tag: pathToDisplay.tag }, route, pathToDisplay.path || '/');
+    window.history.pushState(
+      { tag: pathToDisplay.tag },
+      this.rootPath + route,
+      pathToDisplay.path || '/'
+    );
     window.dispatchEvent(new Event('popstate'));
   }
 
