@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'https://unpkg.com/lit-element?module';
 import { Router } from '../app/app.routing.js';
 
 export class Menu extends LitElement {
+  open = true;
   menuList = [
     {
       title: 'Home',
@@ -33,6 +34,7 @@ export class Menu extends LitElement {
         margin: 0;
         display: flex;
         background: var(--primary);
+        transition: ease-in-out 0.5s;
       }
 
       li {
@@ -59,13 +61,22 @@ export class Menu extends LitElement {
         li {
           text-align: center;
         }
+
+        .close {
+          transform: translateY(-100%);
+        }
       }
     `;
   }
 
+  openChanged(open) {
+    this.open = open;
+    this.requestUpdate();
+  }
+
   render() {
     return html`
-      <ul>
+      <ul class="${this.open ? '' : 'close'}">
         ${this.menuList.map(
           (item) =>
             html` <li
@@ -76,6 +87,7 @@ export class Menu extends LitElement {
               ${item.title}
             </li>`
         )}
+        <tg-menubutton @openChange="${(e) => this.openChanged(e.detail.open)}"></tg-menubutton>
       </ul>
     `;
   }
