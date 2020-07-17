@@ -17,6 +17,10 @@ export class Menu extends LitElement {
       path: 'routing'
     },
     {
+      title: 'Übungen',
+      path: 'exercise'
+    },
+    {
       title: 'About Me',
       path: 'about'
     }

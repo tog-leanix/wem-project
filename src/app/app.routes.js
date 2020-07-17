@@ -8,8 +8,8 @@ export const ROUTES = [
     tag: 'tg-routingpage'
   },
   {
-    path: 'test',
-    tag: 'tg-testpage'
+    path: 'exercise',
+    tag: 'tg-exercisepage'
   },
   {
     path: 'about',
