@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Task 03</title>
+</head>
+<body>
+  <h1>Tabellenkalkulation</h1>
+  <table>
+    <thead>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</body>
+<script>
+  const thead = document.querySelector('thead');
+  const tbody = document.querySelector('tbody');
+
+  const registeredCells = new Map();
+
+  // Generate header row start
+  const headerRow = document.createElement('tr');
+  headerRow.appendChild(document.createElement('th'));
+  for(let i = 0; i < 26; i++){
+    const th = document.createElement('th');
+    th.style.borderBottom = 'solid 3px';
+    th.innerText = String.fromCharCode(65 + i);
+    headerRow.appendChild(th);
+  }
+  thead.appendChild(headerRow);
+  // Generate header row end
+
+
+  //Cell blur listener
+  const cellBlurListener = (ev) => {
+    const cell = ev.target;
+    const value = cell.innerText;
+
+    const num = Number.parseInt(value);
+    if(num) cell.style['text-align'] = 'right' 
+    else cell.style['text-align'] = 'left';
+
+
+    const regexSum = /=SUM\(\S*\)/;
+    // const regexSum = /=SUM\(([AZ]{1}\d{1}){1}:([AZ]{1}\d{1}){1}\){1}/;
+    const matchSum = value.match(regexSum);
+
+    if(matchSum && matchSum.length > 0)return applySum(matchSum[0], cell);
+
+    registeredCells.forEach(_cell => {
+      _cell.innerText = _cell.dataset.formula;
+      cellBlurListener({target: _cell});
+    })
+  }
+
+  //Cell focus listener
+  const cellFocusListener = (ev)=>{
+    const cell = ev.target;
+    if(cell.dataset.formula)cell.innerText = cell.dataset.formula;
+  }
+
+  //Generate normal row start
+  for(let i = 0; i < 99; i++){
+    const row = document.createElement('tr');
+    for(let j = 0; j < 27; j++){
+      const td = document.createElement('td');
+      if(j !== 0){
+        td.contentEditable = "true";
+        td.onblur = cellBlurListener;
+        td.onfocus = cellFocusListener;
+      }else{
+        td.innerText = i;
+        td.style.textAlign = 'center';
+        td.style.fontWeight = 'bolder';
+        td.style.borderRight = 'solid 3px';
+      }
+      row.appendChild(td);
+    }
+    tbody.appendChild(row);
+  }
+  //Generate normal row end
+
+
+  //SUM 
+  function applySum(str, cell){
+    const _str = (''+str.replace('=SUM(','')).replace(')','');
+    const _values = _str.split(':');
+    if(_values.length === 2){
+      cell.dataset.formula = str;
+      registerRule(cell);
+      let result;
+      //compare same Letter A-Z then iterate through numbers
+      if(_values[0].charAt(0) === _values[1].charAt(0)){
+        const colLetter = _values[0].charAt(0);
+        const rowFrom = _values[0].charAt(1);
+        const rowTo = _values[1].charAt(1);
+
+        result = calcRowSum(colLetter, rowFrom, rowTo);
+
+      }else if(_values[0].charAt(1) === _values[1].charAt(1)){
+        const rowNum = _values[0].charAt(1);
+        const colFrom = _values[0].charAt(0);
+        const colTo = _values[1].charAt(0);
+
+        result = calcColSum(rowNum, colFrom, colTo);
+      }else{
+        result = '#ERROR';
+      }
+
+      cell.innerText = result;
+
+      const num = Number.parseInt(result);
+      if(num) cell.style['text-align'] = 'right' 
+      else cell.style['text-align'] = 'left';
+
+    }
+
+    function calcRowSum(col, from, to){
+      // char code 65 equals A
+      const colIndex = col.charCodeAt(0) - 65
+      const rows = Array.from(tbody.querySelectorAll('tr'))
+      let sum = 0;
+      for(let i = (from); i <= to; i++){
+        const cell = rows[i].children.item(colIndex + 1);
+        const numVal = Number.parseInt(cell.innerText);
+        sum+=numVal;
+      }
+      return sum;
+    }
+
+    function calcColSum(rowIndex, from, to){
+      // char code 65 equals A
+      const colIndexFrom = from.charCodeAt(0) - 65;
+      const colIndexTo = to.charCodeAt(0) - 65;
+      const row = Array.from(tbody.querySelectorAll('tr'))[rowIndex];
+      let sum = 0;
+      for(let i = colIndexFrom; i <= colIndexTo; i++){
+        const cell = row.children.item(i + 1);
+        const numVal = Number.parseInt(cell.innerText);
+        sum+=numVal;
+      }
+      return sum;
+    }
+  }
+  
+  function registerRule(cell){
+    registeredCells.set(cell, cell);
+  }
+</script>
+<style>
+  table{
+    border-collapse: collapse;
+  }
+  th,td{
+    min-width: 100px;
+    border: solid thin;
+    padding: .3rem;
+  }
+
+  td[contenteditable]:focus {
+    box-shadow: 0px 0px 0px 3px #333 inset;
+    outline: none;
+  }
+</style>
+</html>

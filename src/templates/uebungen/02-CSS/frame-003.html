@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Frame 3</title>
+  <style>
+    body, html{
+      margin:0;
+      padding: 0;
+      height: 100vh;
+      background: #ccc;
+      font-family: Arial;
+    }
+
+    :root{
+      --footer-nav-bg: #222;
+      --footer-nav-color: #eee;
+    }
+    /* Nav styles */
+    nav{
+      background: var(--footer-nav-bg);
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+    nav ul{
+      padding: 0;
+      margin: 0;
+      color: var(--footer-nav-color);
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+    }
+    nav li{
+      padding: 1em 2em;
+      cursor: pointer;
+    }
+
+    /* main styles */
+    main{
+      margin: 10vh 0;
+
+    }
+
+    main h1{
+      text-align: center;
+    }
+
+    main .container{
+      display: flex;
+      flex-direction: row;
+    }
+    .container aside {
+      width: 50%;
+    }
+
+    #product{
+      width: 50%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      margin: auto;
+      border:  solid thin;
+    }
+
+    aside{
+      padding: 2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    aside.text p{
+      text-align: center;
+      margin: 2em 0;
+    }
+
+    
+
+    /* footer styles */
+    footer{
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      background:  var(--footer-nav-bg);
+      color: var(--footer-nav-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1em;
+      padding-top: 3em;
+    }
+
+    /* global style */
+    .btn{
+      background: orange;
+      padding: 1em 4em;
+      border: none;
+      border-radius: 5px;
+      text-transform: uppercase;
+      color: var(--footer-nav-color);
+      font-weight: bolder;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li>The book series</li>
+      <li>Testimorials</li>
+      <li>The Author</li>
+      <li>Free resources</li>
+    </ul>
+  </nav>
+  <main>
+    <h1>You dont know about JavaScript</h1>
+    <div class="container">
+      <aside>
+        <img id="product" src="https://kaul.inf.h-brs.de/data/2019/img/landing-img.png" alt="">
+      </aside>
+      <aside class="text">
+        <p>Don't drift through Javascript.</p>
+        <p>Understand how Javascript works</p>
+        <p>Start your journey through the bumpy side of Javascript</p>
+        <button class="btn">order your copy now</button>
+
+      </aside>
+    </div>
+
+
+
+  </main>
+  <footer>
+    <p>The first ebook in the book series is absolutly free.</p>
+    <button class="btn">find out more about this offer</button>
+  </footer>
+</body>
+</html>

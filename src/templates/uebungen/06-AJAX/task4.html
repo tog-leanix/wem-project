@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Task 4</title>
+  <style>
+    header, nav, main, aside, footer,li{
+      border: solid 3px lightgray;
+      border-radius: 5px;
+      padding: .5em;
+    }
+    ul{
+      list-style: none;
+    }
+    body{
+      display: grid;
+      height: 100%;
+      width: 100%;
+      grid-template-columns: 100%;
+      grid-template-rows: 3em auto auto auto 3em;
+      grid-gap: 1em;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    html{
+      height: calc(100vh - 2em);
+      width: calc(100vw - 2em);
+      padding: 1em;
+    }
+
+    /* tablet */
+    @media (min-width: 700px){
+      body{
+        grid-template-columns: auto 50%;
+        grid-template-rows: 3em auto auto 3em;
+      }
+      header, footer, aside{
+        grid-column: 1 / 3;
+      }
+    }
+
+    /* personal computer */
+    @media (min-width: 1200px){
+      body{
+        grid-template-columns: 15% auto 15%;
+        grid-template-rows: 3em auto 3em;
+      }
+      aside{
+        grid-column: initial;
+      }
+      header, footer{
+        grid-column: 1 / 4;
+      }
+    }
+
+    
+    li{
+      margin: .5em 0;
+    }
+
+    #mainNav{
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+    }
+    #mainNav>li{
+      margin: 0 auto;
+      padding: .2em;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    
+  </style>
+</head>
+<body>
+  <header>
+    <ul id="mainNav"></ul>
+  </header>
+  <nav side="left">
+    <ul id="sideNav">
+    </ul>
+  </nav>
+  <main></main>
+  <aside side="right">Aside</aside>
+  <footer>Footer</footer>
+</body>
+
+<script>
+  const initMenu = async ()=>{
+    const menus = await (await fetch('./json/menu.json')).json();
+    const mainNav = document.querySelector('#mainNav');
+    const sideNav = document.querySelector('#sideNav');
+    const mainDiv = document.querySelector('main');
+
+    Object.keys(menus).forEach(
+      (header, index) => {
+        const li = document.createElement('li');
+        li.innerText = header;
+        mainNav.appendChild(li);
+        li.onclick = ()=>{
+          const sideMenu = Object.keys(menus[header]);
+          sideNav.innerHTML = '';
+          mainDiv.innerHTML = menus[header][sideMenu[0]]
+
+          sideMenu.forEach(sideHeader => {
+            const li = document.createElement('li');
+            li.innerText = sideHeader;
+            sideNav.appendChild(li);
+            li.onclick = ()=>{
+              mainDiv.innerHTML = menus[header][sideHeader]
+            }
+          })
+          
+        }
+        if(index === 0)li.click();
+      })
+  }
+
+  initMenu();
+</script>
+</html>

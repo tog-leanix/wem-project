@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="module">
+  import { LitElement, svg, css } from 'https://unpkg.com/lit-element?module'
+
+  class SvgDemo extends LitElement {
+    
+    static get styles(){
+      return css`
+      `
+    }
+
+    static get properties() {
+      return {
+        data: {type:Array}
+      }
+    }
+
+    constructor(){
+      super();
+      this.data = [
+        {
+          label:'asd',
+          value: 123,
+          color: 'green'
+        },
+        {
+          label:'asd',
+          value: 10,
+          color: 'yellow'
+        },
+        {
+          label:'asd',
+          value: 223,
+          color: 'grey'
+        },
+        {
+          label:'asd',
+          value: 250,
+          color: 'black'
+        },
+      ]
+
+    }
+
+    render(){
+      let max, min;
+      this.data.forEach(d => {
+        if(!max)max = d.value;
+        if(!min)min = d.value;
+        if(d.value > max)max = d.value;
+        if(d.value < min)min = d.value;
+      })
+
+      const barWidth = 100 / this.data.length;
+
+      return svg`
+      <svg viewBox="0 0 100 100">
+        ${this.data.map((d, index) => {
+          return svg`
+            <rect 
+            x="${(index * barWidth)}" 
+            y="${100 - d.value / (max/ 100)}" 
+            width="${barWidth}" 
+            height="${d.value / (max/ 100)}" 
+            fill="${d.color}" />
+            `
+        })}
+      </svg>
+      `
+    }
+
+    initCurser(ev){
+      console.log(ev);
+      const svg = this.shadowRoot.querySelector('svg');
+      const pt = svg.createSVGPoint();
+      pt.x = ev.clientX;
+      pt.y = ev.clientY;
+      const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+      this.cx = svgP.x;
+      this.cy = svgP.y;
+    }
+  }
+
+  customElements.define('svg-demo', SvgDemo);
+</script>
+
+
+<svg-demo></svg-demo>
+</html>

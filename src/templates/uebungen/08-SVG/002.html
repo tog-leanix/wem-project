@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script type="module">
+    import { LitElement, svg, css } from 'https://unpkg.com/lit-element?module'
+
+  class SvgBezier extends LitElement {
+    
+    static get styles(){
+      return css`
+        svg{
+          border:solid thin;
+        }
+        circle{
+          fill:transparent;
+          stroke: grey;
+          stroke-width:1;
+          r: 3;
+          cursor:pointer;
+        }
+        path{
+          fill: #33333333;
+
+        }
+        text{
+          user-select:none;
+        }
+        line{
+          stroke:#33333333;
+          stroke-width:1;
+        }
+      `
+    }
+
+    static get properties() {
+      return {
+        pos1:{type:Object},
+        pos2:{type:Object},
+        pos3:{type:Object},
+      }
+    }
+
+    constructor(){
+      super();
+      this.pos1 = {
+        x:10,
+        y:10,
+      }
+      this.pos2 = {
+        x:20,
+        y:20,
+      }
+      this.pos3 = {
+        x:30,
+        y:30,
+      }
+
+      
+    }
+
+    connectedCallback(){
+      super.connectedCallback();
+    }
+
+
+    firstUpdated(changedProps) {
+      super.firstUpdated();
+      const circles = this.shadowRoot.querySelectorAll('circle');
+      circles.forEach((el, i)=> this.initDragDropCircle(el, i));
+    }
+
+    render(){
+      return svg`
+      <svg viewBox="0 0 500 500">
+        <path 
+        d="M ${this.pos1.x},${this.pos1.y} Q ${this.pos2.x},${this.pos2.y} ${this.pos3.x},${this.pos3.y}" 
+        stroke="black"
+        stroke-width="1"
+        />
+        <circle cx="${this.pos1.x}"  cy="${this.pos1.y}" />
+        <text x="${this.pos1.x + 5}" y="${this.pos1.y - 5}" font-size="5">${this.pos1.x.toFixed()}, ${this.pos1.y.toFixed()}</text>
+
+        <line x1="${this.pos1.x}" y1="${this.pos1.y}" x2="${this.pos2.x}" y2="${this.pos2.y}"  />
+        
+        <circle cx="${this.pos2.x}"  cy="${this.pos2.y}" />
+        <text x="${this.pos2.x + 5}" y="${this.pos2.y - 5}" font-size="5">${this.pos2.x.toFixed()}, ${this.pos2.y.toFixed()}</text>
+        
+        <line x1="${this.pos3.x}" y1="${this.pos3.y}" x2="${this.pos2.x}" y2="${this.pos2.y}"  />
+        
+        <circle cx="${this.pos3.x}"  cy="${this.pos3.y}" />
+        <text x="${this.pos3.x + 5}" y="${this.pos3.y - 5}" font-size="5">${this.pos3.x.toFixed()}, ${this.pos3.y.toFixed()}</text>
+      </svg>
+      `
+    }
+
+    initDragDropCircle(el, index){
+      el.addEventListener("mousedown", (ev)=>{
+
+        const drag = (ev)=>{
+          this['pos' + (index + 1)] = getSVGPos(ev);
+        }
+
+        const stopDrag = (ev)=>{
+          this.removeEventListener("mousemove", drag);
+        }
+
+        this.addEventListener("mousemove", drag);
+        this.addEventListener("mouseup", stopDrag);
+        this.addEventListener("mouseleave", stopDrag);
+
+
+        const getSVGPos = (ev)=>{
+          const svg = this.shadowRoot.querySelector('svg');
+          const pt = svg.createSVGPoint();
+          pt.x = ev.clientX;
+          pt.y = ev.clientY;
+          const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+          return {
+            x : svgP.x,
+            y : svgP.y
+          }
+        }
+      })
+
+      
+      
+    }
+
+  }
+
+  class SvgBezierCubic extends SvgBezier {
+    
+
+    static get properties(){
+      return Object.assign(super.properties, {
+        pos4: { type: Object }
+      })
+    }
+
+    constructor(){
+      super();
+      this.pos4 = {
+        x: 40,
+        y: 40
+      }
+    }
+
+    render(){
+      return svg`
+      <svg viewBox="0 0 500 500">
+        <path 
+        d="M ${this.pos1.x},${this.pos1.y} C ${this.pos2.x},${this.pos2.y} ${this.pos3.x},${this.pos3.y} ${this.pos4.x},${this.pos4.y}" 
+        stroke="black"
+        stroke-width="1"
+        />
+        <circle cx="${this.pos1.x}"  cy="${this.pos1.y}" />
+        <text x="${this.pos1.x + 5}" y="${this.pos1.y - 5}" font-size="5">${this.pos1.x.toFixed()}, ${this.pos1.y.toFixed()}</text>
+        <line x1="${this.pos1.x}" y1="${this.pos1.y}" x2="${this.pos2.x}" y2="${this.pos2.y}"  />
+        <circle cx="${this.pos2.x}"  cy="${this.pos2.y}" />
+        <text x="${this.pos2.x + 5}" y="${this.pos2.y - 5}" font-size="5">${this.pos2.x.toFixed()}, ${this.pos2.y.toFixed()}</text>
+        <line x1="${this.pos3.x}" y1="${this.pos3.y}" x2="${this.pos2.x}" y2="${this.pos2.y}"  />
+        <circle cx="${this.pos3.x}"  cy="${this.pos3.y}" />
+        <text x="${this.pos3.x + 5}" y="${this.pos3.y - 5}" font-size="5">${this.pos3.x.toFixed()}, ${this.pos3.y.toFixed()}</text>
+        <line x1="${this.pos3.x}" y1="${this.pos3.y}" x2="${this.pos4.x}" y2="${this.pos4.y}"  />
+        <circle cx="${this.pos4.x}"  cy="${this.pos4.y}" />
+        <text x="${this.pos4.x + 5}" y="${this.pos4.y - 5}" font-size="5">${this.pos4.x.toFixed()}, ${this.pos4.y.toFixed()}</text>
+      </svg>
+      `
+    }
+  }
+
+  customElements.define('svg-bezier', SvgBezier);  
+  customElements.define('svg-bezier-cubic', SvgBezierCubic);  
+  </script>
+
+  <svg-bezier></svg-bezier>
+  <svg-bezier-cubic></svg-bezier-cubic>
+</body>
+</html>

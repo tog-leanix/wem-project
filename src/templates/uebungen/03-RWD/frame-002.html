@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Frame 002</title>
+  <style>
+    *{box-sizing: border-box}
+
+    html,body{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      width: 100vw;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    nav, aside, footer, main{
+      width: 100%;
+    }
+
+    nav, footer, aside{
+      height:200px;
+    }
+    main{
+      height: 800px;
+    }
+
+    aside, footer, main, nav{
+      border: white solid 10px;
+    }
+
+    @media screen and (min-width:700px) {
+      main{
+        width: 60%;
+      }
+      aside{
+        width:40%;
+        height: 800px;
+      }
+    }
+
+    @media screen and (min-width:1400px) {
+      aside, footer{
+        width:20%;
+        height: 800px;
+      }
+      main{
+        width: 60%
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav style="background: red"></nav>
+  <aside style="background:greenyellow"></aside>
+  <main style="background: blue"></main>
+  <footer style="background: purple"></footer>
+</body>
+</html>

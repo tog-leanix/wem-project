@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Test</title>
+</head>
+<body>
+  <h1>Einkaufsliste</h1>
+  <label>Enter a new item:</label>
+  <input type="text">
+  <button>Add</button>
+  <ul></ul>
+
+  <script>
+    const input = document.querySelector('input');
+    const button = document.querySelector('button');
+    const list = document.querySelector('ul');
+    const addItem = function(){
+      const value = input.value;
+      const listItem = document.createElement('li')
+      listItem.innerHTML = `${value} <button>Delete</button>`
+      listItem.querySelector('button').onclick = ()=>{
+        listItem.remove();
+      }
+
+      list.appendChild(listItem);
+      input.value = '';
+      input.focus();
+    }
+
+    button.onclick = addItem;
+    input.onkeydown = (ev)=>{
+      if(ev.keyCode === 13) addItem();
+    }
+    
+
+
+  </script>
+</body>
+</html>

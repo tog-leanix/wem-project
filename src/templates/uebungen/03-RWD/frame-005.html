@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Frame 005</title>
+  <style>
+    *{box-sizing: border-box}
+    body, html{
+      padding: 0;
+      margin: 0;
+    }
+    body{
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Nav */
+    nav{
+      width: 100%;
+      background: #c14f4f;
+      color: white;
+      border-top-left-radius: 1rem; 
+      border-top-right-radius: 1rem; 
+    }
+    nav h1{
+      text-align: center;
+    }
+    nav ul{
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    nav ul li{
+      margin: 1rem 2rem;
+      padding: .5rem 2rem;
+      background: #6a709e;
+      color: black;
+      border: solid 5px white;
+      border-radius: 25px;
+      width: 250px;
+      text-align: center;
+      border-right-color: #9a9a9a;
+      border-bottom-color: #9a9a9a;
+    }
+
+    footer{
+      background: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+    }
+    footer a {
+      color: white;
+      margin: 0 1rem;
+    }
+
+    main{
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      /* with wrap correct display of stretch?!?! */
+      flex-wrap: wrap;
+
+    }
+
+    .side-menu{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .side-menu li{
+      padding: .5rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .add-container{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .add{
+      width: 200px;
+      height: 500px;
+      border: solid 5px black;
+
+    }
+
+    /* main content */
+    main aside{
+      width: 20%;
+      background: #c18281;
+      color: white;
+    }
+    main article{
+      width: 60%;
+      background: #699ebd;
+      color: white;
+    }
+    main article p {
+      padding: 5rem 1rem;
+      font-size: 20px;
+    }
+
+    /* Queries */
+    @media screen and (max-width: 1400px) {
+      main aside{
+        order: 2;
+        width: 50%;
+      }
+      main article{
+        order: 1;
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 700px) {
+      main aside{
+        order: 2;
+        width: 100%;
+      }
+      main article{
+        order: 1;
+        width: 100%;
+      }
+
+       nav ul{
+         flex-direction: column;
+       }
+    }
+
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Header</h1>
+    <ul>
+      <li>Home</li>
+      <li>Home</li>
+      <li>Home</li>
+      <li>Home</li>
+    </ul>
+  </nav>
+  <main>
+    <aside>
+      <ul class="side-menu">
+        <li>left</li>
+        <li>menu</li>
+        <li>with</li>
+        <li>many</li>
+        <li>items</li>
+      </ul>
+    </aside>
+    <article>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, ut corporis vero corrupti laborum provident illum perferendis, nobis nam rem ad. Fugit repellat modi minima! Debitis similique error dolor vel.</p>
+    </article>
+    <aside class="add-container">
+      <div class="add"></div>
+      <div class="add"></div>
+      <div class="add"></div>
+      <div class="add"></div>
+    </aside>
+  </main>
+  <footer>
+    <h2>Footer:</h2>
+    <a href="javascript:void(0)">Link</a>
+    <a href="javascript:void(0)">Link</a>
+    <a href="javascript:void(0)">Link</a>
+    <a href="javascript:void(0)">Link</a>
+  </footer>
+</body>
+</html>

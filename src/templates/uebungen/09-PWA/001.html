@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <ul id="menu">
+
+  </ul>
+  <div id="container"></div>
+</body>
+<script type="module">
+  const ROUTES =
+  [
+    {
+      path:'', 
+      title:'Index',
+      html: 
+      `
+      Hello World
+      `
+    },
+    {
+      path:'home', 
+      title:'Home',
+      html: 
+      `
+        This is Homeeeee
+      `
+    },
+    {
+      path:'products', 
+      title:'Produkte',
+      html: 
+      `
+      <ul>
+        <li>Product</li>
+        <li>Product</li>
+        <li>Product</li>
+        <li>Product</li>
+      </ul>
+      `
+    },
+    {
+      path:'info', 
+      title:'Info',
+      html: 
+      `
+      <h1>This is Info</h1>
+      `
+    }
+  ]
+    const baseUrl = window.location.pathname;
+    const menuElm = document.querySelector("#menu");
+    const container = document.querySelector("#container");
+
+
+    window.onpopstate = (event) => {
+      if(!event.state)return;
+      const route = event.state.route;
+      history.replaceState(route, route.title, baseUrl + '/' + route.path);
+      container.innerHTML = route.html;
+    }
+
+    const init = ()=>{
+      ROUTES.forEach(route => {
+        const navigate = ()=>{
+          const history = window.history;
+          history.pushState({route}, route.title, baseUrl + '/' + route.path);
+          container.innerHTML = route.html;
+        }
+        
+        const li = document.createElement("li");
+        li.innerText = route.title;
+        
+        li.addEventListener("click", navigate) ;
+        menuElm.appendChild(li);
+      })
+    }
+
+    
+    
+
+    
+    init();
+
+
+</script>
+</html>

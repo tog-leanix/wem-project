@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Dynamische Laden der Dateien</h1>
+  <p></p>
+</body>
+<script>
+  const loadData = async ()=>{
+    const fetches = ['textA', 'textB'].map(
+      txt => fetch(`./txt/${txt}.txt`)
+    )
+
+    document.querySelector('p').innerText = (await getConcatResponse(await Promise.all(fetches)));
+  }
+
+  const getConcatResponse = async (responses) => {
+          const texts = await Promise.all(responses.map(r => r.text()));
+          return texts
+          .map(resText => resText.split(/\n/g))
+            .reduce((prev, curr)=>{
+              prev.forEach((el, i) => {
+                el += curr[i];
+              });
+              return prev.join('\r\n')
+            })
+  }
+
+  loadData();
+</script>
+</html>

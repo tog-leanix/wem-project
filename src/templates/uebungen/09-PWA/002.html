@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>State</title>
+</head>
+<body>
+  <my-app></my-app>
+  <my-app></my-app>
+  <my-app></my-app>
+  <my-app></my-app>
+</body>
+<script type="module">
+  import { component, useState, html } from 'https://unpkg.com/haunted/haunted.js';
+
+  function App(){
+    const [counter, setCounter] = useState(0);
+
+
+    return html`
+      <div>
+        <button @click=${() => setCounter(counter + 1)}>Counter count: ${counter}</button>
+      </div>
+    `
+  }
+
+  customElements.define("my-app", component(App));
+</script>
+</html>

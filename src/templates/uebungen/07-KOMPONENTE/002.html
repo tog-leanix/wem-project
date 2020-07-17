@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<script type="module">
+import { LitElement, html, css } from 'https://unpkg.com/lit-element?module'
+class Menu extends LitElement {
+  
+  static get properties(){
+    return {
+      menu:{
+        type: Array
+      },
+      horizontal:{
+        type: Boolean
+      }
+    }
+  }
+
+  static get styles(){
+    return css`
+    ul{
+      display:flex;
+      margin:0;
+      padding: 0;
+      flex-direction: column;
+      list-style: none;
+      justify-content: space-around;
+    }
+
+    ul.horizontal{
+      flex-direction: row; 
+    }
+    ul.vertical{
+      flex-direction: column; 
+    }
+    `
+  }
+
+  constructor(){
+    super();
+    this.menu = [];
+    this.horizontal = false;
+  }
+  connectedCallback() {
+    super.connectedCallback();
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+  }
+  update(changed) {
+    super.update();
+    console.log(this.horizontal);
+  }
+
+  render(){
+    return html`
+    <ul class="${this.horizontal === true ? 'horizontal': 'vertical'}">
+      ${this.menu.map(m => {
+        return html`<li><a href="${m.link}">${m.label}</a></li>`
+      })}
+    </ul>
+    `;
+  }
+}
+customElements.define("my-menu", Menu);
+</script>
+<body>
+  <my-menu
+  menu='[{"label":"abc","link":"google.de"}, {"label":"asd","link":"google.de"}, {"label":"fed","link":"google.de"}]'
+  horizontal="true"
+  ></my-menu>
+</body>
+
+</html>

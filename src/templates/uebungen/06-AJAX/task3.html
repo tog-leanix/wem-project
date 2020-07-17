@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Worker</h1>
+  <div id="results">
+    <p>
+      Main: <span id="main"></span> ms
+    </p>
+    <p>
+      Worker: <span id="worker"></span> ms
+    </p>
+  </div>
+</body>
+<script>
+  const arr  = new Array(1000000);
+  for(let i = 0; i < arr.length; i++){
+    arr[i] = Math.round(Math.random() * 10);
+  }
+
+  
+
+  const worker = new Worker('./js/sort.js');
+  const startWorker = Date.now();
+  worker.postMessage([arr]);
+  worker.addEventListener("message", function(ev){
+    document.querySelector('#worker').innerText = Date.now() - startWorker;
+  })
+
+  const startMain = Date.now();
+  arr.sort();
+  document.querySelector('#main').innerText = Date.now() - startMain;
+
+
+</script>
+</html>

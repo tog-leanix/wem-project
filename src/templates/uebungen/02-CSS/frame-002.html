@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Frame 2</title>
+  <style>
+    body{
+      background: rgb(138, 214, 210);
+    }
+    h1{
+      text-align: center;
+    }
+    form{
+      background: #eee;
+      border-radius: 5px;
+      margin: 1em;
+      padding: 1em;
+    }
+    form > p {
+      text-align: center;
+    }
+    
+    
+    
+    .input.multi{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .input.multi li {
+      margin-bottom: 0.5em;
+    }
+    .label.required::before{
+      content: '* ';
+    }
+
+
+    /* Row input and label style */
+    .row {
+      margin: 1em 0;
+      display: flex;
+    }
+    .row .input{
+      margin-left: 0.5em;
+      max-width: 40%;
+      width: 200px;
+      display: inline-block;
+    }
+    .row .label{
+      margin-right: 0.5em;
+      width: 50%;
+      display: inline-block;
+      text-align: right;
+    }
+    .row .label::after{
+      content: ':'
+    }
+  </style>
+</head>
+<body>
+  <h1>Survey Form</h1>
+  <form>
+    <p>Let us know how to improve feeCodeCamp</p>
+    <div class="row">
+      <label class="label required">Name</label>
+      <input class="input" type="text" required>
+    </div>
+    <div class="row">
+      <label class="label required">Email</label>
+      <input class="input" type="email">
+    </div>
+    <div class="row">
+      <label class="label required">Age</label>
+      <input class="input" type="number">
+    </div>
+    <div class="row">
+      <label class="label">Which option best describes your current role?</label>
+      <select class="input">
+        <option>Student</option>
+        <option>Student</option>
+        <option>Student</option>
+        <option>Student</option>
+        <option>Student</option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="label required">How likely is that you would recommend freeCodeCamp to a friend?</label>
+      <ul class="input multi">
+        <li>
+          <input type="radio" id="mc" name="Zahlmethode" value="Mastercard">
+          <label for="mc">Definitely</label> 
+        </li>
+        <li>
+          <input type="radio" id="mc" name="Zahlmethode" value="Mastercard">
+          <label for="mc">Maybe</label> 
+        </li>
+        <li>
+          <input type="radio" id="mc" name="Zahlmethode" value="Mastercard">
+          <label for="mc">Not Sure</label> 
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <label class="label">What do you like most in FCC</label>
+      <select class="input">
+        <option>Student</option>
+        <option>Student</option>
+        <option>Student</option>
+        <option>Student</option>
+        <option>Student</option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="label">Things that you should be imporve in the future (Check all that apply)</label>
+      <ul class="input multi">
+        <li>
+          <input type="checkbox" id="mc" name="Zahlmethode" value="Mastercard">
+          <label for="mc"> Front-end Projects</label> 
+        </li>
+        <li>
+          <input type="checkbox" id="mc" name="Zahlmethode" value="Mastercard">
+          <label for="mc">Back-end Projects</label> 
+        </li>
+        <li>
+          <input type="checkbox" id="mc" name="Zahlmethode" value="Mastercard">
+          <label for="mc">Data Visualisation</label> 
+        </li>
+      </ul>
+    </div>
+  </form>
+  
+</body>
+</html>

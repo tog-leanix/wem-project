@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<script type="module">
+import { LitElement, html } from 'https://unpkg.com/lit-element?module'
+class Timer extends LitElement {
+  interval;
+  lastTick;
+  delta = 0;
+  running = false;
+
+  constructor(){
+    super();
+  }
+  connectedCallback() {
+    super.connectedCallback();
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+  }
+  update(changed) {
+    super.update();
+  }
+  render(){
+    return html`
+    <button @click=${this.onStart} ?disabled="${this.running || this.delta > 0}">Start</button>
+    <button @click=${this.onStart} ?disabled="${this.running || this.delta === 0}">Weiter</button>
+    <button @click=${this.onPause} ?disabled="${!this.running}">Stop</button>
+    <button @click=${this.onReset} ?disabled="${this.delta === 0 || this.running}">Reset</button>
+    <div>${new Date(this.delta - (60 * 60 * 1000)).toLocaleTimeString()}</div>`;
+  }
+  onStart(e){
+    this.running = true;
+    this._setCounter();
+  }
+  onPause(){
+    this.running = false;
+    clearInterval(this.interval);
+    this.update();
+  }
+
+  onReset(){
+    this.delta = 0;
+    this.update();
+  }
+
+  _setCounter(){
+    this.lastTick = Date.now();
+    this.interval = setInterval(()=>{
+      this.delta += Date.now() - this.lastTick;
+      this.lastTick = Date.now();
+      this.update();
+    },30);
+  }
+}
+customElements.define("my-timer", Timer);
+</script>
+<body>
+  <my-timer></my-timer>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Dynamische Laden der Dateien</h1>
+  <p></p>
+</body>
+<script>
+  const loadData = ()=>{
+    const fetches = ['textA', 'textB'].map(
+      txt => fetch(`./txt/${txt}.txt`)
+    )
+
+    Promise
+    .all(fetches)
+    .then(getConcatResponse)
+    .then(text => document.querySelector('p').innerText = text)
+    .catch(err => document.querySelector('p').innerText = 'Error: ' + err)
+    
+  }
+
+  const getConcatResponse = (responses) => {
+    return Promise
+          .all(responses.map(r => r.text()))
+          .then(responseTexts => {
+            return responseTexts
+            .map(resText => resText.split(/\n/g))
+            .reduce((prev, curr)=>{
+              prev.forEach((el, i) => {
+                el += curr[i];
+              });
+              return prev
+            })
+          })
+          .then(concatTextArr => concatTextArr.join('\r\n'))
+  }
+
+  loadData();
+</script>
+</html>

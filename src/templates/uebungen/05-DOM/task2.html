@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Task2 - Timer</title>
+</head>
+<body>
+  <h1>Rednerliste</h1>
+  <label>Neuer Redner</label>
+  <input type="text">
+  <button>Hinzufügen</button>
+  <ul></ul>
+
+  <script>
+    const input = document.querySelector('input');
+    const addBtn = document.querySelector('button');
+    const list = document.querySelector('ul');
+
+    addElement = ()=>{
+      const li = document.createElement('li');
+      const value = input.value;
+      let timeRunnig = 0;
+      let startTimer = 0;
+      li.innerHTML = `${value} <span>${displayTimeString(timeRunnig)}</span> <button>Start!</button>`;
+      list.appendChild(li);
+      const controlBtn = li.querySelector('button');
+      const startFnc = ()=>{
+        startTimer = Date.now();
+        Array.from(list.querySelectorAll('button')).forEach(btn => {
+          if(btn.innerText === 'Stop!'){
+            btn.click();
+          }
+        })
+        controlBtn.innerText = 'Stop!';
+        controlBtn.onclick = stopFnc;
+      }
+
+      const stopFnc = ()=>{
+        startTimer = undefined;
+        controlBtn.innerText = 'Start!';
+        controlBtn.onclick = startFnc;
+      }
+      
+      const interval = setInterval(()=>{
+        if(startTimer) {
+          timeRunnig += (Date.now() - startTimer);
+          startTimer = Date.now();
+          li.querySelector('span').innerText = displayTimeString(timeRunnig);
+        }
+      },30);
+
+      controlBtn.onclick = startFnc;
+      input.value = '';
+    }
+
+    addBtn.onclick = addElement;
+
+
+    const displayTimeString = (timeRunnig)=>{
+      return `${new Date(timeRunnig - (60*60*1000)).toLocaleTimeString()}`
+    }
+  </script>
+</body>
+</html>
